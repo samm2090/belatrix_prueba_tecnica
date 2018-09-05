@@ -10,40 +10,42 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import io.moneyxchange.smuroy.dao.CurrencyExchangeDAO;
-import io.moneyxchange.smuroy.model.CurrencyExchangeBean;
+import io.moneyxchange.smuroy.dao.UserDAO;
+import io.moneyxchange.smuroy.model.User;
 
 /**
- * Interacts with the table currency_exchange
  * 
  * @author SERGIO MUROY
  *
  */
 @Repository
-public class CurrecyExchangeDAOImpl implements CurrencyExchangeDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@Autowired
-	DataSource dataSource;
+	DataSource datasource;
 
 	@Override
-	public CurrencyExchangeBean getCurrecyExchange(int idCurrencyIn, int idCurrencyOut) {
-		String query = "SELECT * FROM currency_exchange WHERE id_currency_in = ? AND  id_currency_out = ?";
+	public User getUser(User user) {
+		String query = "SELECT * FROM user WHERE username = ? AND password = ?";
 
 		Connection connection = null;
-		CurrencyExchangeBean currencyExchange = null;
+		User searchedUser = null;
 
 		try {
-			connection = dataSource.getConnection();
+			connection = datasource.getConnection();
 
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, idCurrencyIn);
-			ps.setInt(2, idCurrencyOut);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
 
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				currencyExchange = new CurrencyExchangeBean();
-				currencyExchange.setValue(rs.getDouble("value"));
+				searchedUser = new User();
+				searchedUser.setId(rs.getInt("id"));
+				searchedUser.setUsername(rs.getString("username"));
+				searchedUser.setStatus(rs.getBoolean("status"));
+				searchedUser.setCreationDate(rs.getDate("creation_date"));
 			}
 
 		} catch (SQLException e) {
@@ -58,7 +60,7 @@ public class CurrecyExchangeDAOImpl implements CurrencyExchangeDAO {
 			}
 		}
 
-		return currencyExchange;
+		return searchedUser;
 	}
 
 }
