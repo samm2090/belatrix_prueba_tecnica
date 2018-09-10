@@ -1,6 +1,7 @@
 package io.moneyxchange.smuroy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,11 +25,13 @@ public class CurrencyExchange {
 
 	/**
 	 * 
-	 * @param amount quantity of money
+	 * @param amount
+	 *            quantity of money
 	 * @param idCurrencyIn
-	 * @param idCurrencyOut 
+	 * @param idCurrencyOut
 	 * @return
 	 */
+	@CrossOrigin
 	@RequestMapping(value = "exchangeCurrency", method = RequestMethod.GET)
 	@ResponseBody
 	public double exchangeCurrency(@RequestParam double amount, @RequestParam int idCurrencyIn,

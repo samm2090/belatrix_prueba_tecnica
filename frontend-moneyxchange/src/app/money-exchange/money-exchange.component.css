@@ -1,0 +1,17 @@
+.mainContent {
+	background-color: #dadfe3;
+	border-bottom: 5px solid #c8c7cf;
+	border-top: 5px solid #c8c7cf;
+	padding-top: 4em;
+	padding-bottom: 2em;
+}
+
+.footer {
+	background-color: #dadfe3;
+	border-top: 5px solid #c8c7cf;
+	padding-top: 2em;
+	padding-bottom: 2em;
+	position: absolute;
+	width: 100vw;
+	bottom: 0;
+}
